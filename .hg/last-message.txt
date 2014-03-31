@@ -1,1 +1,1 @@
-Managed to get the SpeechRecognizer to work
+Getting closer!

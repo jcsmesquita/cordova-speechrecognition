@@ -67,10 +67,12 @@ public class XSpeechRecognizer extends CordovaPlugin {
     {
         public void onReadyForSpeech(Bundle params)
         {
+            this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Ready for Speech"));
             Log.d(TAG, "onReadyForSpeech");
         }
         public void onBeginningOfSpeech()
         {
+            this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Ready for Speech"));
             Log.d(TAG, "onBeginningOfSpeech");
         }
         public void onRmsChanged(float rmsdB)
@@ -92,6 +94,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
         public void onResults(Bundle results)                   
         {
+            this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, results.toString()));
             // String str = new String();
             // Log.d(TAG, "onResults " + results);
             // ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
@@ -115,6 +118,8 @@ public class XSpeechRecognizer extends CordovaPlugin {
     //@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
 
+        this.callbackContext= callbackContext;
+        
         callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Hello World"));
                 
         Handler loopHandler = new Handler(Looper.getMainLooper());
@@ -127,9 +132,8 @@ public class XSpeechRecognizer extends CordovaPlugin {
             
         });
 
-		Boolean isValidAction = true;
+        Boolean isValidAction = true;
 
-        this.callbackContext= callbackContext;
 
 		// Action selector
     	if ("startRecognize".equals(action)) {
