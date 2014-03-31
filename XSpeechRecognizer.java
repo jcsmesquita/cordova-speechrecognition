@@ -72,7 +72,8 @@ public class XSpeechRecognizer extends CordovaPlugin {
         } catch (JSONException e) {
             // this will never happen
         }
-        PluginResult pr = new PluginResult(PluginResult.Status.OK, event);
+        PluginResult pr = new PluginResult(PluginResult.Status.OK, "event");
+        // PluginResult pr = new PluginResult(PluginResult.Status.OK, event);
         pr.setKeepCallback(true);
         this.callbackContext.sendPluginResult(pr); 
     }
@@ -86,27 +87,33 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
         public void onBeginningOfSpeech()
         {
+            fireEvent("start");
             Log.d(TAG, "onBeginningOfSpeech");
         }
         public void onRmsChanged(float rmsdB)
         {
+            fireEvent("start");
             Log.d(TAG, "onRmsChanged");
         }
         public void onBufferReceived(byte[] buffer)
         {
+            fireEvent("start");
             Log.d(TAG, "onBufferReceived");
         }
         public void onEndOfSpeech()
         {
+            fireEvent("start");
             Log.d(TAG, "onEndofSpeech");
         }
         public void onError(int error)
         {
+            fireEvent("start");
             Log.d(TAG,  "error " +  error);
             // mText.setText("error " + error);
         }
         public void onResults(Bundle results)                   
         {
+            fireEvent("start");
             // this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, results.toString()));
             // String str = new String();
             // Log.d(TAG, "onResults " + results);
@@ -120,10 +127,12 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
         public void onPartialResults(Bundle partialResults)
         {
+            fireEvent("start");
              Log.d(TAG, "onPartialResults");
         }
         public void onEvent(int eventType, Bundle params)
         {
+            fireEvent("start");
              Log.d(TAG, "onEvent " + eventType);
         }
     }
