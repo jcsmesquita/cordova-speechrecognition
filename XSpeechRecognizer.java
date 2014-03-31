@@ -63,16 +63,27 @@ public class XSpeechRecognizer extends CordovaPlugin {
     //     // sr.setRecognitionListener(new listener());        
     // }
 
+    private void fireEvent(String type) {
+        JSONObject event = new JSONObject();
+        try {
+            event.put("type",type);
+        } catch (JSONException e) {
+            // this will never happen
+        }
+        PluginResult pr = new PluginResult(PluginResult.Status.OK, event);
+        pr.setKeepCallback(true);
+        this.callbackContext.sendPluginResult(pr); 
+    }
+
     class listener implements RecognitionListener          
     {
         public void onReadyForSpeech(Bundle params)
         {
-            this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Ready for Speech"));
+            fireEvent("start");
             Log.d(TAG, "onReadyForSpeech");
         }
         public void onBeginningOfSpeech()
         {
-            this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Ready for Speech"));
             Log.d(TAG, "onBeginningOfSpeech");
         }
         public void onRmsChanged(float rmsdB)
