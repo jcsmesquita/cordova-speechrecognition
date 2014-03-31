@@ -65,6 +65,33 @@ public class XSpeechRecognizer extends CordovaPlugin {
     //     // sr.setRecognitionListener(new listener());        
     // }
 
+    private void fireRecognitionEvent(ArrayList<String> transcripts, float[] confidences) {
+        JSONObject event = new JSONObject();
+        JSONArray results = new JSONArray();
+        try {
+            for(int i=0; i<transcripts.size(); i++) {
+                JSONArray alternatives = new JSONArray();
+                JSONObject result = new JSONObject();
+                result.put("transcript", transcripts.get(i));
+                result.put("final", true);
+                if (confidences != null) {
+                    result.put("confidence", confidences[i]);
+                }
+                alternatives.put(result);
+                results.put(alternatives);
+            }
+            event.put("type", "result");
+            event.put("emma", null);
+            event.put("interpretation", null);
+            event.put("results", results);
+        } catch (JSONException e) {
+            // this will never happen
+        }
+        PluginResult pr = new PluginResult(PluginResult.Status.OK, event);
+        pr.setKeepCallback(true);
+        this.speechRecognizerCallbackContext.sendPluginResult(pr); 
+    }
+
     private void fireEvent(String type) {
         // callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Event"));
         JSONObject event = new JSONObject();
@@ -91,9 +118,10 @@ public class XSpeechRecognizer extends CordovaPlugin {
             fireEvent("beginning speech");
             Log.d(TAG, "onBeginningOfSpeech");
         }
+        /* RMV Voltage */
         public void onRmsChanged(float rmsdB)
         {
-            fireEvent("rms changed");
+            // fireEvent("rms changed");
             Log.d(TAG, "onRmsChanged");
         }
         public void onBufferReceived(byte[] buffer)
@@ -114,17 +142,18 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
         public void onResults(Bundle results)                   
         {
-            fireEvent("results!");
-            // this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, results.toString()));
-            // String str = new String();
-            // Log.d(TAG, "onResults " + results);
-            // ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            // for (int i = 0; i < data.size(); i++)
-            // {
-            //    Log.d(TAG, "result " + data.get(i));
-            //    str += data.get(i);
-            // }
-            // mText.setText("results: "+String.valueOf(data.size()));        
+            Log.d(LOG_TAG, "results");
+            String str = new String();
+            Log.d(LOG_TAG, "onResults " + results);
+            ArrayList<String> transcript = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            float[] confidence = results.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES);
+            if (transcript.size() > 0) {
+                Log.d(LOG_TAG, "fire recognition event");
+                fireRecognitionEvent(transcript, confidence);
+            } else {
+                Log.d(LOG_TAG, "fire no match event");
+                fireEvent("nomatch");
+            }  
         }
         public void onPartialResults(Bundle partialResults)
         {
