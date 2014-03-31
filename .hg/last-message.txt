@@ -1,1 +1,1 @@
-Adding
+- Refactored name of plugin to XSpeechRecognition to enable import of SpeechRecognition api.
