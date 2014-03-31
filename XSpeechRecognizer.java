@@ -116,7 +116,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
     //@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
 
-        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Hello World"));
+        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, cordova.getActivity().getBaseContext()));
                 
         Handler loopHandler = new Handler(Looper.getMainLooper());
         loopHandler.post(new Runnable() {
