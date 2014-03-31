@@ -133,7 +133,6 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
         this.callbackContext= callbackContext;
 
-
 		// Action selector
     	if ("startRecognize".equals(action)) {
             // recognize speech
@@ -192,16 +191,25 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
 
         // Create the intent and set parameters
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        final Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        // intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,"voice.recognition.test");
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, language);
 
         if (maxMatches > 0)
             intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, maxMatches);
         if (!prompt.equals(""))
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT, prompt);
-        
-        recognizer.startListening(intent);
+
+        Handler loopHandler = new Handler(Looper.getMainLooper());
+        loopHandler.post(new Runnable() {
+
+            @Override
+            public void run() {
+                recognizer.startListening(intent);
+            }
+            
+        });
 
         // cordova.startActivityForResult(this, intent, REQUEST_CODE);
     }
