@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
+import org.apache.cordova.LOG;
 
 import android.util.Log;
 import android.app.Activity;
@@ -114,6 +115,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
     //@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
 
+        LOG.e("TAG", "Hey!!");
         callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
                 
         Handler loopHandler = new Handler(Looper.getMainLooper());

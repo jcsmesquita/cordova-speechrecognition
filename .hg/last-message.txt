@@ -1,1 +1,1 @@
-- Refactored name of plugin to XSpeechRecognition to enable import of SpeechRecognition api.
+Managed to get the SpeechRecognizer to work
