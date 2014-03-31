@@ -115,9 +115,9 @@ public class XSpeechRecognizer extends CordovaPlugin {
     	this.callbackContext= callbackContext;
 
         cordova.getActivity().runOnUiThread(new Runnable() {
-            sr = SpeechRecognizer.createSpeechRecognizer(this);
             @Override
             public void run() {
+                sr = SpeechRecognizer.createSpeechRecognizer(this);
                 // callbackContext.success(); // Thread-safe.
             }
         });
