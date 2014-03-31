@@ -50,21 +50,6 @@ public class XSpeechRecognizer extends CordovaPlugin {
     private LanguageDetailsChecker languageDetailsChecker;
     private SpeechRecognizer recognizer;
 
-    // public void onCreate(Bundle savedInstanceState) 
-    // {
-    //     cordova.getActivity().runOnUiThread(new Runnable() {
-    //         @Override
-    //         public void run() {
-    //             sr = SpeechRecognizer.createSpeechRecognizer(this);
-    //             // callbackContext.success(); // Thread-safe.
-    //         }
-    //     });
-    //     // return true;
-               
-    //     // super.onCreate(savedInstanceState);
-    //     // sr.setRecognitionListener(new listener());        
-    // }
-
     private void fireRecognitionEvent(ArrayList<String> transcripts, float[] confidences) {
         JSONObject event = new JSONObject();
         JSONArray results = new JSONArray();
