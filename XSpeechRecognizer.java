@@ -45,14 +45,15 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
     public void onCreate(Bundle savedInstanceState) 
     {
-        try {
-            
-        }
-        catch (Exception e) {
-            Log.e(TAG, String.format("startSpeechRecognitionActivity exception: %s", e.toString()));
-        }
-        // super.onCreate(savedInstanceState);
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                sr = SpeechRecognizer.createSpeechRecognizer(callbackContext);
+                // callbackContext.success(); // Thread-safe.
+            }
+        });
+        // return true;
                
+        // super.onCreate(savedInstanceState);
         // sr.setRecognitionListener(new listener());        
     }
 
@@ -107,7 +108,6 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
     //@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
-        sr = SpeechRecognizer.createSpeechRecognizer(callbackContext);
 		Boolean isValidAction = true;
 
     	this.callbackContext= callbackContext;
