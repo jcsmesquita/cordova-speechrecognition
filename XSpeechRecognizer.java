@@ -67,6 +67,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
     {
         public void onReadyForSpeech(Bundle params)
         {
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Ready for Speech"));
              Log.d(TAG, "onReadyForSpeech");
         }
         public void onBeginningOfSpeech()
@@ -165,8 +166,6 @@ public class XSpeechRecognizer extends CordovaPlugin {
      * @param args Argument array with the following string args: [req code][number of matches][prompt string]
      */
     private void startSpeechRecognitionActivity(JSONArray args) {
-
-        Log.d(TAG, "Hello World");
 
         int maxMatches = 0;
         String prompt = "";
