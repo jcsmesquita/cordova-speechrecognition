@@ -67,12 +67,10 @@ public class XSpeechRecognizer extends CordovaPlugin {
     {
         public void onReadyForSpeech(Bundle params)
         {
-            cordova.getActivity().getBaseContext().sendPluginResult(new PluginResult(PluginResult.Status.OK, "Ready for Speech"));
             Log.d(TAG, "onReadyForSpeech");
         }
         public void onBeginningOfSpeech()
         {
-            cordova.getActivity().getBaseContext().sendPluginResult(new PluginResult(PluginResult.Status.OK, "Begin Speech"));
             Log.d(TAG, "onBeginningOfSpeech");
         }
         public void onRmsChanged(float rmsdB)
