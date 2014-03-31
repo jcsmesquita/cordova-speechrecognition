@@ -118,11 +118,10 @@ public class XSpeechRecognizer extends CordovaPlugin {
                 
         Handler loopHandler = new Handler(Looper.getMainLooper());
         loopHandler.post(new Runnable() {
-
             @Override
             public void run() {
                 recognizer = SpeechRecognizer.createSpeechRecognizer(cordova.getActivity().getBaseContext());
-                recognizer.setRecognitionListener(new SpeechRecognitionListner());
+                recognizer.setRecognitionListener(new listener());
             }
             
         });
