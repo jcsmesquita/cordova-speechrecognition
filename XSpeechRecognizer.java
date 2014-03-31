@@ -83,38 +83,38 @@ public class XSpeechRecognizer extends CordovaPlugin {
     {
         public void onReadyForSpeech(Bundle params)
         {
-            fireEvent("start");
+            fireEvent("ready for speech");
             Log.d(TAG, "onReadyForSpeech");
         }
         public void onBeginningOfSpeech()
         {
-            fireEvent("start");
+            fireEvent("beginning speech");
             Log.d(TAG, "onBeginningOfSpeech");
         }
         public void onRmsChanged(float rmsdB)
         {
-            fireEvent("start");
+            fireEvent("rms changed");
             Log.d(TAG, "onRmsChanged");
         }
         public void onBufferReceived(byte[] buffer)
         {
-            fireEvent("start");
+            fireEvent("buffer received");
             Log.d(TAG, "onBufferReceived");
         }
         public void onEndOfSpeech()
         {
-            fireEvent("start");
+            fireEvent("end of speech");
             Log.d(TAG, "onEndofSpeech");
         }
         public void onError(int error)
         {
-            fireEvent("start");
+            fireEvent("error:" + error);
             Log.d(TAG,  "error " +  error);
             // mText.setText("error " + error);
         }
         public void onResults(Bundle results)                   
         {
-            fireEvent("start");
+            fireEvent("results!");
             // this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, results.toString()));
             // String str = new String();
             // Log.d(TAG, "onResults " + results);
@@ -128,12 +128,12 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
         public void onPartialResults(Bundle partialResults)
         {
-            fireEvent("start");
+            fireEvent("partial results!");
              Log.d(TAG, "onPartialResults");
         }
         public void onEvent(int eventType, Bundle params)
         {
-            fireEvent("start");
+            fireEvent("event");
              Log.d(TAG, "onEvent " + eventType);
         }
     }
