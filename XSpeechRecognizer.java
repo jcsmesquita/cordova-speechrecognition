@@ -41,7 +41,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
     private CallbackContext callbackContext;
     private LanguageDetailsChecker languageDetailsChecker;
-    private SpeechRecognizer sr;
+    // private SpeechRecognizer sr;
 
     // public void onCreate(Bundle savedInstanceState) 
     // {
@@ -115,9 +115,11 @@ public class XSpeechRecognizer extends CordovaPlugin {
     	this.callbackContext= callbackContext;
 
         cordova.getActivity().runOnUiThread(new Runnable() {
+
+            private SpeechRecognizer sr;
+            sr = SpeechRecognizer.createSpeechRecognizer(this);
             @Override
             public void run() {
-                sr = SpeechRecognizer.createSpeechRecognizer(this);
                 // callbackContext.success(); // Thread-safe.
             }
         });
