@@ -68,28 +68,29 @@ public class XSpeechRecognizer extends CordovaPlugin {
         public void onReadyForSpeech(Bundle params)
         {
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Ready for Speech"));
-             Log.d(TAG, "onReadyForSpeech");
+            Log.d(TAG, "onReadyForSpeech");
         }
         public void onBeginningOfSpeech()
         {
-             Log.d(TAG, "onBeginningOfSpeech");
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Begin Speech"));
+            Log.d(TAG, "onBeginningOfSpeech");
         }
         public void onRmsChanged(float rmsdB)
         {
-             Log.d(TAG, "onRmsChanged");
+            Log.d(TAG, "onRmsChanged");
         }
         public void onBufferReceived(byte[] buffer)
         {
-             Log.d(TAG, "onBufferReceived");
+            Log.d(TAG, "onBufferReceived");
         }
         public void onEndOfSpeech()
         {
-             Log.d(TAG, "onEndofSpeech");
+            Log.d(TAG, "onEndofSpeech");
         }
         public void onError(int error)
         {
-             Log.d(TAG,  "error " +  error);
-             // mText.setText("error " + error);
+            Log.d(TAG,  "error " +  error);
+            // mText.setText("error " + error);
         }
         public void onResults(Bundle results)                   
         {
@@ -116,7 +117,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
     //@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
 
-        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, callbackContext.getCallbackId()));
+        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Hello World"));
                 
         Handler loopHandler = new Handler(Looper.getMainLooper());
         loopHandler.post(new Runnable() {
@@ -193,14 +194,16 @@ public class XSpeechRecognizer extends CordovaPlugin {
         // Create the intent and set parameters
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, language);
 
         if (maxMatches > 0)
             intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, maxMatches);
         if (!prompt.equals(""))
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT, prompt);
-        cordova.startActivityForResult(this, intent, REQUEST_CODE);
+        
+        recognizer.startListening(intent);
+
+        // cordova.startActivityForResult(this, intent, REQUEST_CODE);
     }
 
     /**
