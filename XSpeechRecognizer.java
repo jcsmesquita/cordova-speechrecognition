@@ -46,7 +46,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
     public void onCreate(Bundle savedInstanceState) 
     {
         try {
-            sr = SpeechRecognizer.createSpeechRecognizer(callbackContext);
+            
         }
         catch (Exception e) {
             Log.e(TAG, String.format("startSpeechRecognitionActivity exception: %s", e.toString()));
@@ -107,7 +107,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
     //@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
-
+        sr = SpeechRecognizer.createSpeechRecognizer(callbackContext);
 		Boolean isValidAction = true;
 
     	this.callbackContext= callbackContext;
