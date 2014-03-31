@@ -19,8 +19,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import org.json.JSONArray;
-import org.apache.cordova.CordovaPlugin;
+
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
 
 import android.util.Log;
 import android.app.Activity;
@@ -41,7 +43,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
     private CallbackContext callbackContext;
     private LanguageDetailsChecker languageDetailsChecker;
-    // private SpeechRecognizer sr;
+    private SpeechRecognizer sr;
 
     // public void onCreate(Bundle savedInstanceState) 
     // {
@@ -110,19 +112,23 @@ public class XSpeechRecognizer extends CordovaPlugin {
     //@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
 
+        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+                
+        // Handler loopHandler = new Handler(Looper.getMainLooper());
+        // loopHandler.post(new Runnable() {
+
+        //     @Override
+        //     public void run() {
+        //         recognizer = SpeechRecognizer.createSpeechRecognizer(cordova.getActivity().getBaseContext());
+        //         recognizer.setRecognitionListener(new SpeechRecognitionListner());
+        //     }
+            
+        // });
+
 		Boolean isValidAction = true;
 
-    	this.callbackContext= callbackContext;
+        this.callbackContext= callbackContext;
 
-        cordova.getActivity().runOnUiThread(new Runnable() {
-
-            private SpeechRecognizer sr;
-            sr = SpeechRecognizer.createSpeechRecognizer(this);
-            @Override
-            public void run() {
-                // callbackContext.success(); // Thread-safe.
-            }
-        });
 
 		// Action selector
     	if ("startRecognize".equals(action)) {
