@@ -66,16 +66,17 @@ public class XSpeechRecognizer extends CordovaPlugin {
     // }
 
     private void fireEvent(String type) {
+        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Event"));
         JSONObject event = new JSONObject();
         try {
             event.put("type",type);
         } catch (JSONException e) {
             // this will never happen
         }
-        PluginResult pr = new PluginResult(PluginResult.Status.OK, "event");
+        // PluginResult pr = new PluginResult(PluginResult.Status.OK, "event");
         // PluginResult pr = new PluginResult(PluginResult.Status.OK, event);
-        pr.setKeepCallback(true);
-        this.callbackContext.sendPluginResult(pr); 
+        // pr.setKeepCallback(true);
+        // this.callbackContext.sendPluginResult(pr); 
     }
 
     class listener implements RecognitionListener          
@@ -140,9 +141,9 @@ public class XSpeechRecognizer extends CordovaPlugin {
     //@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
 
-        this.callbackContext= callbackContext;
+        this.callbackContext = callbackContext;
         
-        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Hello World"));
+        // callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Hello World"));
                 
         Handler loopHandler = new Handler(Looper.getMainLooper());
         loopHandler.post(new Runnable() {
