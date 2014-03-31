@@ -43,7 +43,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
     //@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
 
-        Log.d(TAG, "Hello World");
+        Log.d(LOG_TAG, "Hello World");
 
 		Boolean isValidAction = true;
 
