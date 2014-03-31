@@ -45,7 +45,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
     private CallbackContext callbackContext;
     private LanguageDetailsChecker languageDetailsChecker;
-    private SpeechRecognizer sr;
+    private SpeechRecognizer recognizer;
 
     // public void onCreate(Bundle savedInstanceState) 
     // {
