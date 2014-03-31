@@ -95,12 +95,12 @@ public class XSpeechRecognizer extends CordovaPlugin {
     {
         public void onReadyForSpeech(Bundle params)
         {
-            fireEvent("ready for speech");
+            fireEvent("ready");
             Log.d(TAG, "onReadyForSpeech");
         }
         public void onBeginningOfSpeech()
         {
-            fireEvent("beginning speech");
+            fireEvent("start");
             Log.d(TAG, "onBeginningOfSpeech");
         }
         /* RMV Voltage */
@@ -116,7 +116,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
         public void onEndOfSpeech()
         {
-            fireEvent("end of speech");
+            fireEvent("end");
             Log.d(TAG, "onEndofSpeech");
         }
         public void onError(int error)
@@ -127,7 +127,6 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
         public void onResults(Bundle results)                   
         {
-            Log.d(TAG, "results");
             String str = new String();
             Log.d(TAG, "onResults " + results);
             ArrayList<String> transcript = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
@@ -142,7 +141,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
         public void onPartialResults(Bundle partialResults)
         {
-            fireEvent("partial results!");
+            fireEvent("partial results");
              Log.d(TAG, "onPartialResults");
         }
         public void onEvent(int eventType, Bundle params)
