@@ -142,16 +142,16 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
         public void onResults(Bundle results)                   
         {
-            Log.d(LOG_TAG, "results");
+            Log.d(TAG, "results");
             String str = new String();
-            Log.d(LOG_TAG, "onResults " + results);
+            Log.d(TAG, "onResults " + results);
             ArrayList<String> transcript = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             float[] confidence = results.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES);
             if (transcript.size() > 0) {
-                Log.d(LOG_TAG, "fire recognition event");
+                Log.d(TAG, "fire recognition event");
                 fireRecognitionEvent(transcript, confidence);
             } else {
-                Log.d(LOG_TAG, "fire no match event");
+                Log.d(TAG, "fire no match event");
                 fireEvent("nomatch");
             }  
         }
