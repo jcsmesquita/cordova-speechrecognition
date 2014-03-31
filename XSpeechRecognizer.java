@@ -46,7 +46,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
     public void onCreate(Bundle savedInstanceState) 
     {
         // super.onCreate(savedInstanceState);
-        // sr = SpeechRecognizer.createSpeechRecognizer(this.getApplicationContext());       
+        sr = SpeechRecognizer.createSpeechRecognizer(this.getApplicationContext());       
         // sr.setRecognitionListener(new listener());        
     }
 
