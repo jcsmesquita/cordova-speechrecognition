@@ -36,7 +36,7 @@ import android.os.Bundle;
  * Style and such borrowed from the TTS and PhoneListener plugins
  */
 public class XSpeechRecognizer extends CordovaPlugin {
-    private static final String LOG_TAG = XSpeechRecognizer.class.getSimpleName();
+    private static final String TAG = XSpeechRecognizer.class.getSimpleName();
     private static int REQUEST_CODE = 1001;
 
     private CallbackContext callbackContext;
@@ -140,7 +140,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
      */
     private void startSpeechRecognitionActivity(JSONArray args) {
 
-        Log.d(LOG_TAG, "Hello World");
+        Log.d(TAG, "Hello World");
 
         int maxMatches = 0;
         String prompt = "";
@@ -162,7 +162,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
             }
         }
         catch (Exception e) {
-            Log.e(LOG_TAG, String.format("startSpeechRecognitionActivity exception: %s", e.toString()));
+            Log.e(TAG, String.format("startSpeechRecognitionActivity exception: %s", e.toString()));
         }
 
         // Create the intent and set parameters
