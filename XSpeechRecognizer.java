@@ -107,7 +107,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
         public void onResults(Bundle results)                   
         {
-            this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, results.toString()));
+            // this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, results.toString()));
             // String str = new String();
             // Log.d(TAG, "onResults " + results);
             // ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
