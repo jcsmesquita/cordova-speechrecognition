@@ -5,11 +5,11 @@
     <engine name="cordova" version=">=3.0.0" />
   </engines>
   
-  <name>SpeechRecognizer</name>
+  <name>XSpeechRecognizer</name>
   <description>Recognizes speech input</description>
   <license>MIT</license>
   
-  <js-module src="SpeechRecognizer.js" name="SpeechRecognizer">
+  <js-module src="XSpeechRecognizer.js" name="XSpeechRecognizer">
     <clobbers target="plugins.speechrecognizer" /> 
   </js-module>
   
@@ -18,12 +18,12 @@
   </config-file>
 
   <platform name="android">
-    <source-file src="SpeechRecognizer.java" target-dir="src/com/phonegap/plugins/speech" />
+    <source-file src="XSpeechRecognizer.java" target-dir="src/com/phonegap/plugins/speech" />
     <source-file src="LanguageDetailsChecker.java" target-dir="src/com/phonegap/plugins/speech" />
     
     <config-file target="res/xml/config.xml" parent="/*">
-	  <feature name="SpeechRecognizer" >
-	    <param name="android-package" value="com.phonegap.plugins.speech.SpeechRecognizer"/>
+	  <feature name="XSpeechRecognizer" >
+	    <param name="android-package" value="com.phonegap.plugins.speech.XSpeechRecognizer"/>
 	  </feature>
 	</config-file>
     
