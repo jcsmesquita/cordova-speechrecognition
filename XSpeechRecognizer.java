@@ -79,15 +79,15 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
         public void onResults(Bundle results)                   
         {
-            String str = new String();
-            Log.d(TAG, "onResults " + results);
-            ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            for (int i = 0; i < data.size(); i++)
-            {
-               Log.d(TAG, "result " + data.get(i));
-               str += data.get(i);
-            }
-            mText.setText("results: "+String.valueOf(data.size()));        
+            // String str = new String();
+            // Log.d(TAG, "onResults " + results);
+            // ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            // for (int i = 0; i < data.size(); i++)
+            // {
+            //    Log.d(TAG, "result " + data.get(i));
+            //    str += data.get(i);
+            // }
+            // mText.setText("results: "+String.valueOf(data.size()));        
         }
         public void onPartialResults(Bundle partialResults)
         {
