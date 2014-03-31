@@ -43,8 +43,6 @@ public class XSpeechRecognizer extends CordovaPlugin {
     //@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
 
-        Log.d(LOG_TAG, "Hello World");
-
 		Boolean isValidAction = true;
 
     	this.callbackContext= callbackContext;
@@ -82,6 +80,9 @@ public class XSpeechRecognizer extends CordovaPlugin {
      * @param args Argument array with the following string args: [req code][number of matches][prompt string]
      */
     private void startSpeechRecognitionActivity(JSONArray args) {
+
+        Log.d(LOG_TAG, "Hello World");
+        
         int maxMatches = 0;
         String prompt = "";
         String language = Locale.getDefault().toString();
