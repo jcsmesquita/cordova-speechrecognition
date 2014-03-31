@@ -33,6 +33,8 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 
 /**
  * Style and such borrowed from the TTS and PhoneListener plugins
@@ -114,16 +116,16 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
         callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
                 
-        // Handler loopHandler = new Handler(Looper.getMainLooper());
-        // loopHandler.post(new Runnable() {
+        Handler loopHandler = new Handler(Looper.getMainLooper());
+        loopHandler.post(new Runnable() {
 
-        //     @Override
-        //     public void run() {
-        //         recognizer = SpeechRecognizer.createSpeechRecognizer(cordova.getActivity().getBaseContext());
-        //         recognizer.setRecognitionListener(new SpeechRecognitionListner());
-        //     }
+            @Override
+            public void run() {
+                recognizer = SpeechRecognizer.createSpeechRecognizer(cordova.getActivity().getBaseContext());
+                recognizer.setRecognitionListener(new SpeechRecognitionListner());
+            }
             
-        // });
+        });
 
 		Boolean isValidAction = true;
 
