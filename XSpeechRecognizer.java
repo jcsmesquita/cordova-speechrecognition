@@ -43,20 +43,20 @@ public class XSpeechRecognizer extends CordovaPlugin {
     private LanguageDetailsChecker languageDetailsChecker;
     private SpeechRecognizer sr;
 
-    public void onCreate(Bundle savedInstanceState) 
-    {
-        cordova.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                sr = SpeechRecognizer.createSpeechRecognizer(this);
-                // callbackContext.success(); // Thread-safe.
-            }
-        });
-        // return true;
+    // public void onCreate(Bundle savedInstanceState) 
+    // {
+    //     cordova.getActivity().runOnUiThread(new Runnable() {
+    //         @Override
+    //         public void run() {
+    //             sr = SpeechRecognizer.createSpeechRecognizer(this);
+    //             // callbackContext.success(); // Thread-safe.
+    //         }
+    //     });
+    //     // return true;
                
-        // super.onCreate(savedInstanceState);
-        // sr.setRecognitionListener(new listener());        
-    }
+    //     // super.onCreate(savedInstanceState);
+    //     // sr.setRecognitionListener(new listener());        
+    // }
 
     class listener implements RecognitionListener          
     {
@@ -109,9 +109,18 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
     //@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
+
 		Boolean isValidAction = true;
 
     	this.callbackContext= callbackContext;
+
+        cordova.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                sr = SpeechRecognizer.createSpeechRecognizer(this);
+                // callbackContext.success(); // Thread-safe.
+            }
+        });
 
 		// Action selector
     	if ("startRecognize".equals(action)) {
