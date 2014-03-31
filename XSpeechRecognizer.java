@@ -75,7 +75,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
         public void onError(int error)
         {
                  Log.d(TAG,  "error " +  error);
-                 mText.setText("error " + error);
+                 // mText.setText("error " + error);
         }
         public void onResults(Bundle results)                   
         {
