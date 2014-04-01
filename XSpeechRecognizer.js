@@ -41,7 +41,7 @@ XSpeechRecognizer.prototype.start = function(successCallback, errorCallback, max
  * @param reqCode User-defined integer request code which will be returned when recognition is complete
  */
 XSpeechRecognizer.prototype.stopRec = function(successCallback, errorCallback) {
-    return cordova.exec(successCallback, errorCallback, "XSpeechRecognizer", "stopRec");
+    return cordova.exec(successCallback, errorCallback, "XSpeechRecognizer", "stopRec", []);
 };
 
 /**
