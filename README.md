@@ -1,7 +1,6 @@
 Android XSpeechRecognizer plugin for Cordova/Phonegap
 ===================================
 
-<<<<<<< HEAD
 This plugin is based on the following implementations:
 [https://github.com/macdonst/SpeechRecognitionPlugin] SpeechRecognitionPlugin
 [https://github.com/poiuytrez/SpeechRecognizer]SpeechRecognizer
@@ -28,7 +27,6 @@ cordova plugin add https://github.com/jcsmesquita/cordova-speechrecognition
 
 Development and Debugging
 -----------------------------------------------------
->>>>>>> a5a8c045ae868e8e133c395f17f8b614613e122f
 
 When developing this plugin my crude workflow involved commiting the project git repo and pushing it to github, then reloading the plugin and running the cordova android app. For reference, here are the scripts I used:
 ```bash
