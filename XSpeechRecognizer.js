@@ -27,9 +27,9 @@ function XSpeechRecognizer() {
  * @param errorCallback
  * @param reqCode User-defined integer request code which will be returned when recognition is complete
  */
-XSpeechRecognizer.prototype.init = function(successCallback, errorCallback) {
-    return cordova.exec(successCallback, errorCallback, "XSpeechRecognizer", "init", []);
-};
+// XSpeechRecognizer.prototype.init = function(successCallback, errorCallback) {
+//     return cordova.exec(successCallback, errorCallback, "XSpeechRecognizer", "init", []);
+// };
 
 /**
  * Recognize speech and return a list of matches
