@@ -15,7 +15,6 @@
   
   <config-file target="AndroidManifest.xml" parent="/manifest">
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
   </config-file>
 
   <platform name="android">
