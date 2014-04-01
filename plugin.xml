@@ -9,26 +9,25 @@
   <description>Recognizes speech input</description>
   <license>MIT</license>
   
-  <js-module src="www/XSpeechRecognizer.js" name="XSpeechRecognizer">
+  <js-module src="XSpeechRecognizer.js" name="XSpeechRecognizer">
     <clobbers target="plugins.speechrecognizer" /> 
   </js-module>
   
 
   <platform name="android">
-
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="XSpeechRecognizer" >
         <param name="android-package" value="com.phonegap.plugins.speech.XSpeechRecognizer"/>
       </feature>
     </config-file>
-
     <config-file target="AndroidManifest.xml" parent="/manifest">
       <uses-permission android:name="android.permission.RECORD_AUDIO"/>
       <uses-permission android:name="android.permission.INTERNET"/>
     </config-file>
     
-    <source-file src="src/android/XSpeechRecognizer.java" target-dir="src/com/phonegap/plugins/speech" />
-    <source-file src="src/android/LanguageDetailsChecker.java" target-dir="src/com/phonegap/plugins/speech" />
+    <source-file src="XSpeechRecognizer.java" target-dir="src/com/phonegap/plugins/speech" />
+    <source-file src="LanguageDetailsChecker.java" target-dir="src/com/phonegap/plugins/speech" />
+    
     
   </platform>
   
