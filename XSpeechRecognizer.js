@@ -29,8 +29,8 @@ function XSpeechRecognizer() {
  * @param maxMatches The maximum number of matches to return. 0 means the service decides how many to return.
  * @param promptString An optional string to prompt the user during recognition
  */
-XSpeechRecognizer.prototype.startRecognize = function(successCallback, errorCallback, maxMatches, promptString, language) {
-    return cordova.exec(successCallback, errorCallback, "XSpeechRecognizer", "startRecognize", [maxMatches, promptString, language]);
+XSpeechRecognizer.prototype.startRecognize = function(successCallback, errorCallback, maxMatches, language) {
+    return cordova.exec(successCallback, errorCallback, "XSpeechRecognizer", "startRecognize", [maxMatches, language]);
 };
 
 /**

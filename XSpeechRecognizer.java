@@ -66,8 +66,8 @@ public class XSpeechRecognizer extends CordovaPlugin {
                 results.put(alternatives);
             }
             event.put("type", "result");
-            event.put("emma", null);
-            event.put("interpretation", null);
+            // event.put("emma", null);
+            // event.put("interpretation", null);
             event.put("results", results);
         } catch (JSONException e) {
             // this will never happen
@@ -201,12 +201,11 @@ public class XSpeechRecognizer extends CordovaPlugin {
 	/**
      * Fire an intent to start the speech recognition activity.
      *
-     * @param args Argument array with the following string args: [req code][number of matches][prompt string]
+     * @param args Argument array with the following string args: [req code][number of matches]
      */
     private void startSpeechRecognitionActivity(JSONArray args) {
 
         int maxMatches = 0;
-        String prompt = "";
         String language = Locale.getDefault().toString();
 
         try {
@@ -216,12 +215,8 @@ public class XSpeechRecognizer extends CordovaPlugin {
                 maxMatches = Integer.parseInt(temp);
             }
             if (args.length() > 1) {
-            	// Optional text prompt
-                prompt = args.getString(1);
-            }
-            if (args.length() > 2) {
-            	// Optional language specified
-            	language = args.getString(2);
+            	// Language
+            	language = args.getString(1);
             }
         }
         catch (Exception e) {
@@ -236,8 +231,6 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
         if (maxMatches > 0)
             intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, maxMatches);
-        if (!prompt.equals(""))
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, prompt);
 
         Handler loopHandler = new Handler(Looper.getMainLooper());
         loopHandler.post(new Runnable() {
@@ -248,8 +241,6 @@ public class XSpeechRecognizer extends CordovaPlugin {
             }
             
         });
-
-        // cordova.startActivityForResult(this, intent, REQUEST_CODE);
     }
 
     /**
@@ -267,7 +258,6 @@ public class XSpeechRecognizer extends CordovaPlugin {
             // Failure - Let the caller know
             this.callbackContext.error(Integer.toString(resultCode));
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
