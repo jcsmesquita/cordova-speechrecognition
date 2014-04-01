@@ -202,7 +202,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
             @Override
             public void run() {
                 recognizer.stopListening();
-                recognizer.cancel();
+                // recognizer.cancel();
             }
             
         });
