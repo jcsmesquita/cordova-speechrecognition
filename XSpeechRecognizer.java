@@ -56,45 +56,42 @@ public class XSpeechRecognizer extends CordovaPlugin {
     private LanguageDetailsChecker languageDetailsChecker;
     private SpeechRecognizer recognizer;
 
-    private void fireRecognitionEvent(ArrayList<String> transcripts, float[] confidences) {
-        JSONObject event = new JSONObject();
-        JSONArray results = new JSONArray();
-        try {
-            for(int i=0; i<transcripts.size(); i++) {
-                JSONArray alternatives = new JSONArray();
-                JSONObject result = new JSONObject();
-                result.put("transcript", transcripts.get(i));
-                result.put("final", true);
-                if (confidences != null) {
-                    result.put("confidence", confidences[i]);
-                }
-                alternatives.put(result);
-                results.put(alternatives);
-            }
-            event.put("type", "result");
-            // event.put("emma", null);
-            // event.put("interpretation", null);
-            event.put("results", results);
-        } catch (JSONException e) {
-            // this will never happen
-        }
-        PluginResult pr = new PluginResult(PluginResult.Status.OK, event);
-        pr.setKeepCallback(true);
-        this.callbackContext.sendPluginResult(pr); 
-    }
+    //@Override
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
 
-    private void fireEvent(String type) {
-        // callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Event"));
-        JSONObject event = new JSONObject();
-        try {
-            event.put("type",type);
-        } catch (JSONException e) {
-            // this will never happen
+        this.callbackContext = callbackContext;
+        
+        // callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Hello World"));
+                
+        Handler loopHandler = new Handler(Looper.getMainLooper());
+        loopHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                recognizer = SpeechRecognizer.createSpeechRecognizer(cordova.getActivity().getBaseContext());
+                recognizer.setRecognitionListener(new listener());
+            }
+            
+        });
+
+        Boolean isValidAction = true;
+
+
+        // Action selector
+        if (ACTION_SPEECH_RECOGNIZE_START.equals(action)) {
+            // recognize speech
+            startSpeechRecognitionActivity(args);     
+        } else if (ACTION_GET_SUPPORTED_LANGUAGES.equals(action)) {
+            getSupportedLanguages();
+        } else if(ACTION_SPEECH_RECOGNIZE_STOP.equals(action)){
+            stopSpeechRecognitionActivity();
+        } else {
+            // Invalid action
+            this.callbackContext.error("Unknown action: " + action);
+            isValidAction = false;
         }
-        // PluginResult pr = new PluginResult(PluginResult.Status.OK, "event");
-        PluginResult pr = new PluginResult(PluginResult.Status.OK, event);
-        pr.setKeepCallback(true);
-        this.callbackContext.sendPluginResult(pr); 
+        
+        return isValidAction;
+
     }
 
     class listener implements RecognitionListener          
@@ -157,54 +154,61 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
     }
 
-    //@Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
+    private void fireRecognitionEvent(ArrayList<String> transcripts, float[] confidences) {
+        JSONObject event = new JSONObject();
+        JSONArray results = new JSONArray();
+        try {
+            for(int i=0; i<transcripts.size(); i++) {
+                JSONArray alternatives = new JSONArray();
+                JSONObject result = new JSONObject();
+                result.put("transcript", transcripts.get(i));
+                result.put("final", true);
+                if (confidences != null) {
+                    result.put("confidence", confidences[i]);
+                }
+                alternatives.put(result);
+                results.put(alternatives);
+            }
+            event.put("type", "result");
+            // event.put("emma", null);
+            // event.put("interpretation", null);
+            event.put("results", results);
+        } catch (JSONException e) {
+            // this will never happen
+        }
+        PluginResult pr = new PluginResult(PluginResult.Status.OK, event);
+        pr.setKeepCallback(true);
+        this.callbackContext.sendPluginResult(pr); 
+    }
 
-        this.callbackContext = callbackContext;
-        
-        // callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Hello World"));
-                
+    private void fireEvent(String type) {
+        // callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Event"));
+        JSONObject event = new JSONObject();
+        try {
+            event.put("type",type);
+        } catch (JSONException e) {
+            // this will never happen
+        }
+        // PluginResult pr = new PluginResult(PluginResult.Status.OK, "event");
+        PluginResult pr = new PluginResult(PluginResult.Status.OK, event);
+        pr.setKeepCallback(true);
+        this.callbackContext.sendPluginResult(pr); 
+    }
+
+    private void stopSpeechRecognitionActivity(){
         Handler loopHandler = new Handler(Looper.getMainLooper());
         loopHandler.post(new Runnable() {
+
             @Override
             public void run() {
-                recognizer = SpeechRecognizer.createSpeechRecognizer(cordova.getActivity().getBaseContext());
-                recognizer.setRecognitionListener(new listener());
+                recognizer.stopListening();
+                recognizer.cancel();
             }
             
         });
-
-        Boolean isValidAction = true;
-
-
-		// Action selector
-    	if (ACTION_SPEECH_RECOGNIZE_START.equals(action)) {
-            // recognize speech
-            startSpeechRecognitionActivity(args);     
-        } else if (ACTION_GET_SUPPORTED_LANGUAGES.equals(action)) {
-        	getSupportedLanguages();
-        } else {
-            // Invalid action
-        	this.callbackContext.error("Unknown action: " + action);
-        	isValidAction = false;
-        }
-    	
-        return isValidAction;
-
     }
 
-    // Get the list of supported languages
-    private void getSupportedLanguages() {
-    	if (languageDetailsChecker == null){
-    		languageDetailsChecker = new LanguageDetailsChecker(callbackContext);
-    	}
-    	// Create and launch get languages intent
-    	Intent detailsIntent = new Intent(RecognizerIntent.ACTION_GET_LANGUAGE_DETAILS);
-    	cordova.getActivity().sendOrderedBroadcast(detailsIntent, null, languageDetailsChecker, null, Activity.RESULT_OK, null, null);
-		
-	}
-
-	/**
+    /**
      * Fire an intent to start the speech recognition activity.
      *
      * @param args Argument array with the following string args: [req code][number of matches]
@@ -216,13 +220,13 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
         try {
             if (args.length() > 0) {
-            	// Maximum number of matches, 0 means the recognizer decides
+                // Maximum number of matches, 0 means the recognizer decides
                 String temp = args.getString(0);
                 maxMatches = Integer.parseInt(temp);
             }
             if (args.length() > 1) {
-            	// Language
-            	language = args.getString(1);
+                // Language
+                language = args.getString(1);
             }
         }
         catch (Exception e) {
@@ -249,4 +253,14 @@ public class XSpeechRecognizer extends CordovaPlugin {
         });
     }
     
+    // Get the list of supported languages
+    private void getSupportedLanguages() {
+    	if (languageDetailsChecker == null){
+    		languageDetailsChecker = new LanguageDetailsChecker(callbackContext);
+    	}
+    	// Create and launch get languages intent
+    	Intent detailsIntent = new Intent(RecognizerIntent.ACTION_GET_LANGUAGE_DETAILS);
+    	cordova.getActivity().sendOrderedBroadcast(detailsIntent, null, languageDetailsChecker, null, Activity.RESULT_OK, null, null);
+		
+	}
 }
