@@ -45,6 +45,12 @@ import android.os.Looper;
 public class XSpeechRecognizer extends CordovaPlugin {
     private static final String TAG = XSpeechRecognizer.class.getSimpleName();
     private static int REQUEST_CODE = 1001;
+    public static final String ACTION_SPEECH_RECOGNIZE_START = "start";
+    public static final String ACTION_SPEECH_RECOGNIZE_STOP = "stop";
+    public static final String ACTION_SPEECH_RECOGNIZE_ABORT = "abort";
+    public static final String ACTION_GET_SUPPORTED_LANGUAGES = "getSupportedLanguages";
+    public static final String NOT_PRESENT_MESSAGE = "Speech recognition is not present or enabled";
+
 
     private CallbackContext callbackContext;
     private LanguageDetailsChecker languageDetailsChecker;
@@ -172,10 +178,10 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
 
 		// Action selector
-    	if ("startRecognize".equals(action)) {
+    	if (ACTION_SPEECH_RECOGNIZE_START.equals(action)) {
             // recognize speech
             startSpeechRecognitionActivity(args);     
-        } else if ("getSupportedLanguages".equals(action)) {
+        } else if (ACTION_GET_SUPPORTED_LANGUAGES.equals(action)) {
         	getSupportedLanguages();
         } else {
             // Invalid action
@@ -241,29 +247,6 @@ public class XSpeechRecognizer extends CordovaPlugin {
             }
             
         });
-    }
-
-    /**
-     * Handle the results from the recognition activity.
-     */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            // Fill the list view with the strings the recognizer thought it could have heard
-            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
-            returnSpeechResults(matches);
-        }
-        else {
-            // Failure - Let the caller know
-            this.callbackContext.error(Integer.toString(resultCode));
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void returnSpeechResults(ArrayList<String> matches) {
-        JSONArray jsonMatches = new JSONArray(matches);
-        this.callbackContext.success(jsonMatches);
     }
     
 }
