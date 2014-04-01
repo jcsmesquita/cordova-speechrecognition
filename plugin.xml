@@ -20,6 +20,7 @@
   <platform name="android">
     <source-file src="XSpeechRecognizer.java" target-dir="src/com/jcsmesquita/plugins/speechrecognizer" />
     <source-file src="LanguageDetailsChecker.java" target-dir="src/com/jcsmesquita/plugins/speechrecognizer" />
+    <source-file src="Listener.java" target-dir="src/com/jcsmesquita/plugins/speechrecognizer" />
     
     <config-file target="res/xml/config.xml" parent="/*">
   	  <feature name="XSpeechRecognizer" >
