@@ -1,14 +1,16 @@
 Android XSpeechRecognizer plugin for Cordova/Phonegap
 ===================================
 
+Purpose
+-----------------------------------------------------
+Implements Android's speech recognition without the google dialog popup.
+Recognition is done as a one-shot, this plugin is not suitable for continuous recognition.
+
 This plugin is heavily based on the following implementations:
 * [SpeechRecognitionPlugin](https://github.com/macdonst/SpeechRecognitionPlugin)
 * [SpeechRecognize](https://github.com/poiuytrez/SpeechRecognizer)
 
 A lot of credit is due to the developers involved in those two projects. I would not have been able to work on this if it weren't for those two projects as reference. This is also the first cordova plugin I write, so there is definitely room for improvement and contributions!
-
-The aim of this plugin was to implement Android's speech recognition without the google dialog popup.
-Recognition is done as a one-shot, this plugin is not suitable for continuous recognition.
 
 Installation for cordova>=3.0.0
 -----------------------------------------------------
