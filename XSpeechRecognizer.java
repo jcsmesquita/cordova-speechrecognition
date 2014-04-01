@@ -43,11 +43,11 @@ import android.os.Looper;
  * Style and such borrowed from the TTS and PhoneListener plugins
  */
 public class XSpeechRecognizer extends CordovaPlugin {
-
+    
     private static final String TAG = XSpeechRecognizer.class.getSimpleName();
     private static int REQUEST_CODE = 1001;
     public static final String ACTION_SPEECH_RECOGNIZE_START = "start";
-    public static final String ACTION_SPEECH_RECOGNIZE_STOP = "stopRec";
+    public static final String ACTION_SPEECH_RECOGNIZE_STOP = "stop";
     public static final String ACTION_SPEECH_RECOGNIZE_ABORT = "abort";
     public static final String ACTION_GET_SUPPORTED_LANGUAGES = "getSupportedLanguages";
     public static final String NOT_PRESENT_MESSAGE = "Speech recognition is not present or enabled";
@@ -196,16 +196,16 @@ public class XSpeechRecognizer extends CordovaPlugin {
     }
 
     private void stopSpeechRecognitionActivity(){
-        // Handler loopHandler = new Handler(Looper.getMainLooper());
-        // loopHandler.post(new Runnable() {
+        Handler loopHandler = new Handler(Looper.getMainLooper());
+        loopHandler.post(new Runnable() {
 
-        //     @Override
-        //     public void run() {
-        //         recognizer.stopListening();
-        //         recognizer.cancel();
-        //     }
+            @Override
+            public void run() {
+                recognizer.stopListening();
+                recognizer.cancel();
+            }
             
-        // });
+        });
     }
 
     /**
