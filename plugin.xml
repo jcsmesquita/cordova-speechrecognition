@@ -9,13 +9,13 @@
   <description>Recognizes speech input</description>
   <license>MIT</license>
   
-  <js-module src="XSpeechRecognizer.js" name="XSpeechRecognizer">
+  <js-module src="www/XSpeechRecognizer.js" name="XSpeechRecognizer">
     <clobbers target="plugins.speechrecognizer" /> 
   </js-module>
   
 
   <platform name="android">
-    
+
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="XSpeechRecognizer" >
         <param name="android-package" value="com.phonegap.plugins.speech.XSpeechRecognizer"/>
