@@ -196,16 +196,16 @@ public class XSpeechRecognizer extends CordovaPlugin {
     }
 
     private void stopSpeechRecognitionActivity(){
-        Handler loopHandler = new Handler(Looper.getMainLooper());
-        loopHandler.post(new Runnable() {
+        // Handler loopHandler = new Handler(Looper.getMainLooper());
+        // loopHandler.post(new Runnable() {
 
-            @Override
-            public void run() {
-                recognizer.stopListening();
-                recognizer.cancel();
-            }
+        //     @Override
+        //     public void run() {
+        //         recognizer.stopListening();
+        //         recognizer.cancel();
+        //     }
             
-        });
+        // });
     }
 
     /**
