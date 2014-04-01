@@ -90,6 +90,11 @@ Full example
 </html>
 ```
 
+Roadmap
+----------------
+* A trully cross-platform plugin for Speech Recognition doesn't exist yet. This project could be the base for extending this funcitonality across all possible platforms - iOS, Windows Phone, Blackberry and so on.
+* Allow for continuous recognition.
+
 License
 ----------------
 
