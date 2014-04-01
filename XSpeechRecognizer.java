@@ -46,6 +46,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
     private static final String TAG = XSpeechRecognizer.class.getSimpleName();
     private static int REQUEST_CODE = 1001;
+    public static final String ACTION_INIT = "init";
     public static final String ACTION_SPEECH_RECOGNIZE_START = "start";
     public static final String ACTION_SPEECH_RECOGNIZE_STOP = "stop";
     public static final String ACTION_SPEECH_RECOGNIZE_ABORT = "abort";
@@ -62,8 +63,6 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
         this.callbackContext = callbackContext;
         
-        // callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Hello World"));
-                
         Handler loopHandler = new Handler(Looper.getMainLooper());
         loopHandler.post(new Runnable() {
             @Override
@@ -80,6 +79,8 @@ public class XSpeechRecognizer extends CordovaPlugin {
         if (ACTION_SPEECH_RECOGNIZE_START.equals(action)) {
             // recognize speech
             startSpeechRecognitionActivity(args);     
+        } else if (ACTION_INIT.equals(action)){
+
         } else if (ACTION_GET_SUPPORTED_LANGUAGES.equals(action)) {
             getSupportedLanguages();
         } else if(ACTION_SPEECH_RECOGNIZE_STOP.equals(action)) {
@@ -92,66 +93,6 @@ public class XSpeechRecognizer extends CordovaPlugin {
         
         return isValidAction;
 
-    }
-
-    class listener implements RecognitionListener          
-    {
-        public void onReadyForSpeech(Bundle params)
-        {
-            fireEvent("ready");
-            Log.d(TAG, "onReadyForSpeech");
-        }
-        public void onBeginningOfSpeech()
-        {
-            fireEvent("start");
-            Log.d(TAG, "onBeginningOfSpeech");
-        }
-        /* RMV Voltage */
-        public void onRmsChanged(float rmsdB)
-        {
-            // fireEvent("rms changed");
-            Log.d(TAG, "onRmsChanged");
-        }
-        public void onBufferReceived(byte[] buffer)
-        {
-            fireEvent("buffer received");
-            Log.d(TAG, "onBufferReceived");
-        }
-        public void onEndOfSpeech()
-        {
-            fireEvent("end");
-            Log.d(TAG, "onEndofSpeech");
-        }
-        public void onError(int error)
-        {
-            fireErrorEvent(error);
-            Log.d(TAG,  "error " +  error);
-            // mText.setText("error " + error);
-        }
-        public void onResults(Bundle results)                   
-        {
-            String str = new String();
-            Log.d(TAG, "onResults " + results);
-            ArrayList<String> transcript = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            float[] confidence = results.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES);
-            if (transcript.size() > 0) {
-                Log.d(TAG, "fire recognition event");
-                fireRecognitionEvent(transcript, confidence);
-            } else {
-                Log.d(TAG, "fire no match event");
-                fireEvent("nomatch");
-            }  
-        }
-        public void onPartialResults(Bundle partialResults)
-        {
-            fireEvent("partial results");
-             Log.d(TAG, "onPartialResults");
-        }
-        public void onEvent(int eventType, Bundle params)
-        {
-            fireEvent("event");
-             Log.d(TAG, "onEvent " + eventType);
-        }
     }
 
     private void fireRecognitionEvent(ArrayList<String> transcripts, float[] confidences) {
@@ -277,4 +218,64 @@ public class XSpeechRecognizer extends CordovaPlugin {
     	cordova.getActivity().sendOrderedBroadcast(detailsIntent, null, languageDetailsChecker, null, Activity.RESULT_OK, null, null);
 		
 	}
+
+    class listener implements RecognitionListener          
+    {
+        public void onReadyForSpeech(Bundle params)
+        {
+            fireEvent("ready");
+            Log.d(TAG, "onReadyForSpeech");
+        }
+        public void onBeginningOfSpeech()
+        {
+            fireEvent("start");
+            Log.d(TAG, "onBeginningOfSpeech");
+        }
+        /* RMV Voltage */
+        public void onRmsChanged(float rmsdB)
+        {
+            // fireEvent("rms changed");
+            Log.d(TAG, "onRmsChanged");
+        }
+        public void onBufferReceived(byte[] buffer)
+        {
+            fireEvent("buffer received");
+            Log.d(TAG, "onBufferReceived");
+        }
+        public void onEndOfSpeech()
+        {
+            fireEvent("end");
+            Log.d(TAG, "onEndofSpeech");
+        }
+        public void onError(int error)
+        {
+            fireErrorEvent(error);
+            Log.d(TAG,  "error " +  error);
+            // mText.setText("error " + error);
+        }
+        public void onResults(Bundle results)                   
+        {
+            String str = new String();
+            Log.d(TAG, "onResults " + results);
+            ArrayList<String> transcript = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            float[] confidence = results.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES);
+            if (transcript.size() > 0) {
+                Log.d(TAG, "fire recognition event");
+                fireRecognitionEvent(transcript, confidence);
+            } else {
+                Log.d(TAG, "fire no match event");
+                fireEvent("nomatch");
+            }  
+        }
+        public void onPartialResults(Bundle partialResults)
+        {
+            fireEvent("partial results");
+             Log.d(TAG, "onPartialResults");
+        }
+        public void onEvent(int eventType, Bundle params)
+        {
+            fireEvent("event");
+             Log.d(TAG, "onEvent " + eventType);
+        }
+    }
 }
