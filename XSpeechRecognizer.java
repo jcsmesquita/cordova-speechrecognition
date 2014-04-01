@@ -182,7 +182,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
     }
 
     private void fireErrorEvent(Integer code){
-        PluginResult pr = new PluginResult(PluginResult.Status.ERROR, code);
+        PluginResult pr = new PluginResult(PluginResult.Status.ERROR, code.toString());
         pr.setKeepCallback(false);
         this.callbackContext.sendPluginResult(pr); 
     }
