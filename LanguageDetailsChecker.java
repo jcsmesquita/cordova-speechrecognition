@@ -14,7 +14,7 @@
  *
  */
 
-package com.jcsmesquita.plugins.speech;
+package com.jcsmesquita.plugins.speechrecognizer;
 
 import java.util.List;
 
