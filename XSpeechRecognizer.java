@@ -183,6 +183,12 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
     private void fireErrorEvent(Integer code){
         JSONObject event = new JSONObject();
+        try {
+            event.put("type", "error");
+            event.put("code", code.toString());
+        } catch (JSONException e) {
+            // this will never happen
+        }
         event.put("type", "error");
         event.put("code", code.toString());
 
