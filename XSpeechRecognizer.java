@@ -13,7 +13,7 @@
  *
  *
  */
-package com.jcsmesquita.plugins.speechrecognizer;
+package com.phonegap.plugins.speech;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -65,7 +65,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
                 @Override
                 public void run() {
                     recognizer = SpeechRecognizer.createSpeechRecognizer(cordova.getActivity().getBaseContext());
-                    recognizer.setRecognitionListener(new Listener());
+                    recognizer.setRecognitionListener(new listener());
                 }
                 
             });
@@ -205,4 +205,63 @@ public class XSpeechRecognizer extends CordovaPlugin {
     	Intent detailsIntent = new Intent(RecognizerIntent.ACTION_GET_LANGUAGE_DETAILS);
     	cordova.getActivity().sendOrderedBroadcast(detailsIntent, null, languageDetailsChecker, null, Activity.RESULT_OK, null, null);
 	}
+
+    class listener implements RecognitionListener          
+    {
+        public void onReadyForSpeech(Bundle params)
+        {
+            fireEvent("ready");
+            Log.d(TAG, "onReadyForSpeech");
+        }
+        public void onBeginningOfSpeech()
+        {
+            fireEvent("start");
+            Log.d(TAG, "onBeginningOfSpeech");
+        }
+        /* RMV Voltage */
+        public void onRmsChanged(float rmsdB)
+        {
+            // fireEvent("rms changed");
+            Log.d(TAG, "onRmsChanged");
+        }
+        public void onBufferReceived(byte[] buffer)
+        {
+            fireEvent("buffer received");
+            Log.d(TAG, "onBufferReceived");
+        }
+        public void onEndOfSpeech()
+        {
+            fireEvent("end");
+            Log.d(TAG, "onEndofSpeech");
+        }
+        public void onError(int error)
+        {
+            fireErrorEvent(error);
+            Log.d(TAG,  "error " +  error);
+        }
+        public void onResults(Bundle results)                   
+        {
+            String str = new String();
+            Log.d(TAG, "onResults " + results);
+            ArrayList<String> transcript = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            float[] confidence = results.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES);
+            if (transcript.size() > 0) {
+                Log.d(TAG, "fire recognition event");
+                fireRecognitionEvent(transcript, confidence);
+            } else {
+                Log.d(TAG, "fire no match event");
+                fireEvent("nomatch");
+            }  
+        }
+        public void onPartialResults(Bundle partialResults)
+        {
+            fireEvent("partial results");
+             Log.d(TAG, "onPartialResults");
+        }
+        public void onEvent(int eventType, Bundle params)
+        {
+            fireEvent("event");
+             Log.d(TAG, "onEvent " + eventType);
+        }
+    }
 }

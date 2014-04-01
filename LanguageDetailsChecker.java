@@ -14,7 +14,7 @@
  *
  */
 
-package com.jcsmesquita.plugins.speechrecognizer;
+package com.phonegap.plugins.speech;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.jcsmesquita.plugins.speechrecognizer" version="1.0.0">
+    id="com.phonegap.plugins.speech" version="1.0.0">
   <engines>
     <engine name="cordova" version=">=3.0.0" />
   </engines>
@@ -18,13 +18,12 @@
   </config-file>
 
   <platform name="android">
-    <source-file src="XSpeechRecognizer.java" target-dir="src/com/jcsmesquita/plugins/speechrecognizer" />
-    <source-file src="LanguageDetailsChecker.java" target-dir="src/com/jcsmesquita/plugins/speechrecognizer" />
-    <source-file src="Listener.java" target-dir="src/com/jcsmesquita/plugins/speechrecognizer" />
+    <source-file src="XSpeechRecognizer.java" target-dir="src/com/phonegap/plugins/speech" />
+    <source-file src="LanguageDetailsChecker.java" target-dir="src/com/phonegap/plugins/speech" />
     
     <config-file target="res/xml/config.xml" parent="/*">
   	  <feature name="XSpeechRecognizer" >
-  	    <param name="android-package" value="com.jcsmesquita.plugins.speechrecognizer.XSpeechRecognizer"/>
+  	    <param name="android-package" value="com.phonegap.plugins.speech.XSpeechRecognizer"/>
   	  </feature>
   	</config-file>
     
