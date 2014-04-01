@@ -63,22 +63,29 @@ public class XSpeechRecognizer extends CordovaPlugin {
 
         this.callbackContext = callbackContext;
         
-        // callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Hello World"));
-                
-        Handler loopHandler = new Handler(Looper.getMainLooper());
-        loopHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                recognizer = SpeechRecognizer.createSpeechRecognizer(cordova.getActivity().getBaseContext());
-                recognizer.setRecognitionListener(new listener());
-            }
+        // Handler loopHandler = new Handler(Looper.getMainLooper());
+        // loopHandler.post(new Runnable() {
+        //     @Override
+        //     public void run() {
+        //         recognizer = SpeechRecognizer.createSpeechRecognizer(cordova.getActivity().getBaseContext());
+        //         recognizer.setRecognitionListener(new listener());
+        //     }
             
-        });
+        // });
 
         Boolean isValidAction = true;
 
         // Action selector
         if (ACTION_SPEECH_RECOGNIZE_START.equals(action)) {
+            Handler loopHandler = new Handler(Looper.getMainLooper());
+            loopHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    recognizer = SpeechRecognizer.createSpeechRecognizer(cordova.getActivity().getBaseContext());
+                    recognizer.setRecognitionListener(new listener());
+                }
+                
+            });
             // recognize speech
             startSpeechRecognitionActivity(args);     
         } else if (ACTION_GET_SUPPORTED_LANGUAGES.equals(action)) {
