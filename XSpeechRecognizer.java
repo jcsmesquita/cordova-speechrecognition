@@ -13,7 +13,7 @@
  *
  *
  */
-package com.phonegap.plugins.speech;
+package com.jcsmesquita.plugins.speechrecognizer;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -39,9 +39,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
-/**
- * Style and such borrowed from the TTS and PhoneListener plugins
- */
 public class XSpeechRecognizer extends CordovaPlugin {
 
     private static final String TAG = XSpeechRecognizer.class.getSimpleName();
