@@ -43,7 +43,7 @@ import android.os.Looper;
  * Style and such borrowed from the TTS and PhoneListener plugins
  */
 public class XSpeechRecognizer extends CordovaPlugin {
-    
+
     private static final String TAG = XSpeechRecognizer.class.getSimpleName();
     private static int REQUEST_CODE = 1001;
     public static final String ACTION_SPEECH_RECOGNIZE_START = "start";
@@ -124,7 +124,7 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
         public void onError(int error)
         {
-            fireEvent("error:" + error);
+            fireErrorEvent(error);
             Log.d(TAG,  "error " +  error);
             // mText.setText("error " + error);
         }
@@ -178,6 +178,12 @@ public class XSpeechRecognizer extends CordovaPlugin {
         }
         PluginResult pr = new PluginResult(PluginResult.Status.OK, event);
         pr.setKeepCallback(true);
+        this.callbackContext.sendPluginResult(pr); 
+    }
+
+    private void fireErrorEvent(Integer code){
+        PluginResult pr = new PluginResult(PluginResult.Status.ERROR, code);
+        pr.setKeepCallback(false);
         this.callbackContext.sendPluginResult(pr); 
     }
 
