@@ -21,6 +21,26 @@ cordova platform add android
 cordova plugin add https://github.com/jcsmesquita/cordova-speechrecognition
 ```
 
+Installation from Local Folder
+-----------------------------------------------------
+In case of package.JSON missing message, you can create the package.JSON file using plugman as bellow:
+
+1. Download the repo
+2. Extract files
+3. Use plugman to create the package.JSON file
+
+`plugman createpackagejson "path to project"\plugins\com.phonegap.plugins.speech-master`
+
+4.  Install from local folder
+   
+`cordova plugin add "path to project"\plugins\com.phonegap.plugins.speech-master`
+
+Or you can use plugman to install the plugin directly
+
+`plugman install --platform android --project "path to project"\platforms\android --plugin "path to project"\plugins\cordova-speechrecognition-master`
+
+
+
 Development and Debugging
 -----------------------------------------------------
 
